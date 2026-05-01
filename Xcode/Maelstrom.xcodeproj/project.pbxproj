@@ -6,6 +6,23 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		F3AA2A302FA507B9007EA67E /* Maelstrom.dmg */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F3AA2A3D2FA507B9007EA67E /* Build configuration list for PBXAggregateTarget "Maelstrom.dmg" */;
+			buildPhases = (
+				F3AA2A3E2FA507C2007EA67E /* ShellScript */,
+			);
+			dependencies = (
+				F3AA2A402FA507E7007EA67E /* PBXTargetDependency */,
+			);
+			name = Maelstrom.dmg;
+			packageProductDependencies = (
+			);
+			productName = Maelstrom.dmg;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		AA9285A22EDB9A5D0005200A /* SDL3_net.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9285A12EDB9A5D0005200A /* SDL3_net.framework */; };
 		AA9285A32EDB9A5D0005200A /* SDL3_net.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA9285A12EDB9A5D0005200A /* SDL3_net.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -87,6 +104,16 @@
 		F3A2C6FB2F84C2FE0080C346 /* physfssdl3.c in Sources */ = {isa = PBXBuildFile; fileRef = F3A2C6FA2F84C2FE0080C346 /* physfssdl3.c */; };
 		F3CC41422F60E6A10033BDFA /* steam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CC41412F60E6A10033BDFA /* steam.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F3AA2A3F2FA507E7007EA67E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA9284AB2EDB8BB30005200A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA9284B22EDB8BB30005200A;
+			remoteInfo = Maelstrom;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		AA92857A2EDB8EA00005200A /* Embed Frameworks */ = {
@@ -568,6 +595,9 @@
 					AA9284B22EDB8BB30005200A = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
+					F3AA2A302FA507B9007EA67E = {
+						CreatedOnToolsVersion = 26.4.1;
+					};
 				};
 			};
 			buildConfigurationList = AA9284AE2EDB8BB30005200A /* Build configuration list for PBXProject "Maelstrom" */;
@@ -595,6 +625,7 @@
 			projectRoot = "";
 			targets = (
 				AA9284B22EDB8BB30005200A /* Maelstrom */,
+				F3AA2A302FA507B9007EA67E /* Maelstrom.dmg */,
 			);
 		};
 /* End PBXProject section */
@@ -632,6 +663,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ -d \"$INSTALL_ROOT/Library\" ]; then\n    echo \"Removing frameworks from INSTALL_ROOT for archiving\"\n    rm -rf \"$INSTALL_ROOT/Library\"\nfi\n";
+		};
+		F3AA2A3E2FA507C2007EA67E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -ex\n\nPRODUCT_NAME=Maelstrom\n\nmkdir -p build/dmg-tmp\ncp -a ${BUILD_DIR}/${CONFIGURATION}/*.app build/dmg-tmp/\n\n# remove the .DS_Store files if any (we may want to provide one in the future for fancy .dmgs)\nrm -rf build/dmg-tmp/.DS_Store\n\n# create the dmg\nhdiutil create -ov -fs HFS+ -volname $PRODUCT_NAME -srcfolder build/dmg-tmp build/$PRODUCT_NAME.dmg\n\n# clean up\nrm -rf build/dmg-tmp\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -715,6 +763,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F3AA2A402FA507E7007EA67E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA9284B22EDB8BB30005200A /* Maelstrom */;
+			targetProxy = F3AA2A3F2FA507E7007EA67E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		AA9284BC2EDB8BB40005200A /* Debug */ = {
@@ -960,6 +1016,24 @@
 			};
 			name = Release;
 		};
+		F3AA2A312FA507B9007EA67E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F3AA2A322FA507B9007EA67E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -977,6 +1051,15 @@
 			buildConfigurations = (
 				AA9284BF2EDB8BB40005200A /* Debug */,
 				AA9284C02EDB8BB40005200A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3AA2A3D2FA507B9007EA67E /* Build configuration list for PBXAggregateTarget "Maelstrom.dmg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3AA2A312FA507B9007EA67E /* Debug */,
+				F3AA2A322FA507B9007EA67E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
