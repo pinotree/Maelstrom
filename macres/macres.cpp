@@ -465,8 +465,8 @@ int main(int argc, char *argv[])
 				if ( export_res ) {
 					Export(res, types[i], ids[j], argv[arg]);
 				} else {
-					char path[23];
-					SDL_snprintf(path, sizeof(path), "%s/%s:%hu", argv[arg], types[i], ids[j]);
+					char path[PATH_MAX];
+					SDL_snprintf(path, sizeof(path), "%s/%s%hu", argv[arg], types[i], ids[j]);
 					FILE *output;
 					Mac_ResData *D;
 					if ( (output=fopen(path, "w")) != NULL ) {
