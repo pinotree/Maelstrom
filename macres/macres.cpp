@@ -303,7 +303,7 @@ static void ExportFont(Mac_Resource *res, const char *type, Uint16 id, const cha
 
 	FILE *output;
 	Mac_ResData *entry;
-	if ( (output=fopen(path, "w")) != NULL ) {
+	if ( (output=fopen(path, "wb")) != NULL ) {
 		entry = res->Resource(type, id);
 		fwrite(entry->data, entry->length, 1,  output);
 		fclose(output);			   
@@ -469,7 +469,7 @@ int main(int argc, char *argv[])
 					SDL_snprintf(path, sizeof(path), "%s/%s#%hu", argv[arg], types[i], ids[j]);
 					FILE *output;
 					Mac_ResData *D;
-					if ( (output=fopen(path, "w")) != NULL ) {
+					if ( (output=fopen(path, "wb")) != NULL ) {
 						D = res->Resource(types[i], ids[j]);
 						fwrite(D->data, D->length, 1,  output);
 						fclose(output);			   
