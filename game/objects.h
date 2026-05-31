@@ -448,7 +448,7 @@ public:
 	virtual int BeenRunOver(Object *ship) {
 		int was_exploding = ship->IsExploding();
 		int result = Object::BeenRunOver(ship);
-		if ( ship->IsPlayer() && !was_exploding && ship->IsExploding() && gNumRocks == 1 ) {
+		if ( ship->IsPlayer() && !was_exploding && ship->IsExploding() && gNumRocks == 0 ) {
 			UnlockSinglePlayerAchievement("ACHIEVEMENT_USING_YOUR_NOGGIN");
 		}
 		return result;
